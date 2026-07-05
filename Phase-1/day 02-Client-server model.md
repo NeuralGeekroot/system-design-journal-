@@ -193,6 +193,8 @@ You can have 3 layers inside 1 tier. You can have 1 layer spread across 3 tiers.
 - **N-tier (microservices) is not automatically better.** Many successful companies run on well-structured monoliths. Interviewers want you to reason about *when* to split, not blindly split everything.
 - **Tiers ≠ layers.** Tiers are deployment boundaries. Layers are code organisation within a tier.
 - **The "thick client vs thin client" spectrum:** A 1-tier app is the thickest client. A web app that renders everything server-side is the thinnest. Most modern apps sit in between (React frontend + API backend).
+- **Tiers ≠ monolith vs microservices**. A monolith can be 3-tier. Microservices are n-tier. Don't conflate deployment style with architectural separation.
+- **Every tier split needs a "what breaks if I don't" justification**. If you can't name a concrete problem the split solves, don't split.
 
 ----------------------------------------------------------
 
