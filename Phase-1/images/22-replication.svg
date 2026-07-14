@@ -1,0 +1,40 @@
+<svg width="100%" viewBox="0 0 700 260" role="img" font-family="Arial, Helvetica, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<title>Leader-follower database replication</title>
+<desc>An app server writes to the leader database, which replicates changes to two followers; reads are served from either the leader or the followers.</desc>
+<defs>
+  <marker id="arrow22" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M1 1L8 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<text x="20" y="24" font-size="15" font-weight="600" fill="#0B0B0B">Leader-Follower Replication</text>
+
+<rect x="20" y="100" width="120" height="60" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+<text x="80" y="134" text-anchor="middle" font-size="12" font-weight="600" fill="#712B13">App Server</text>
+
+<rect x="260" y="100" width="140" height="60" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+<text x="330" y="126" text-anchor="middle" font-size="12" font-weight="600" fill="#3C3489">Leader</text>
+<text x="330" y="144" text-anchor="middle" font-size="9" fill="#534AB7">read + write</text>
+
+<rect x="500" y="40" width="150" height="56" rx="10" fill="#E3F0FC" stroke="#1D5DA6" stroke-width="1"/>
+<text x="575" y="64" text-anchor="middle" font-size="11" font-weight="600" fill="#123E70">Follower 1</text>
+<text x="575" y="82" text-anchor="middle" font-size="9" fill="#1D5DA6">read only</text>
+
+<rect x="500" y="160" width="150" height="56" rx="10" fill="#E3F0FC" stroke="#1D5DA6" stroke-width="1"/>
+<text x="575" y="184" text-anchor="middle" font-size="11" font-weight="600" fill="#123E70">Follower 2</text>
+<text x="575" y="202" text-anchor="middle" font-size="9" fill="#1D5DA6">read only</text>
+
+<line x1="142" y1="122" x2="258" y2="122" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow22)"/>
+<text x="200" y="114" text-anchor="middle" font-size="9" fill="#1D9E75">writes</text>
+
+<line x1="402" y1="115" x2="498" y2="75" stroke="#5F5E5A" stroke-width="1.4" marker-end="url(#arrow22)"/>
+<text x="450" y="90" text-anchor="middle" font-size="9" fill="#5F5E5A">replicate</text>
+<line x1="402" y1="140" x2="498" y2="180" stroke="#5F5E5A" stroke-width="1.4" marker-end="url(#arrow22)"/>
+<text x="450" y="165" text-anchor="middle" font-size="9" fill="#5F5E5A">replicate</text>
+
+<line x1="80" y1="98" x2="80" y2="20" stroke="#1D9E75" stroke-width="1.3" marker-end="url(#arrow22)"/>
+<path d="M80,20 Q290,4 560,38" fill="none" stroke="#1D9E75" stroke-width="1.3" marker-end="url(#arrow22)"/>
+<text x="300" y="14" text-anchor="middle" font-size="9" fill="#1D9E75">reads (may lag slightly)</text>
+
+<text x="20" y="245" font-size="11" fill="#52514E">Async replication = fast writes but a replica can return stale data (replication lag). Sync = safer, slower, less available.</text>
+</svg>

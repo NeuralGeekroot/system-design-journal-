@@ -1,0 +1,46 @@
+<svg width="100%" viewBox="0 0 700 320" role="img" font-family="Arial, Helvetica, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<title>Cache-aside read path</title>
+<desc>An app server checks the cache first; on a hit it returns immediately, on a miss it reads the database, populates the cache, then returns the result.</desc>
+<defs>
+  <marker id="arrow16" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M1 1L8 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<text x="20" y="24" font-size="15" font-weight="600" fill="#0B0B0B">Cache-aside (lazy loading)</text>
+
+<rect x="20" y="120" width="110" height="60" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+<text x="75" y="154" text-anchor="middle" font-size="12" font-weight="600" fill="#085041">Client</text>
+
+<rect x="200" y="120" width="120" height="60" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+<text x="260" y="154" text-anchor="middle" font-size="12" font-weight="600" fill="#712B13">App Server</text>
+
+<rect x="390" y="40" width="130" height="60" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+<text x="455" y="66" text-anchor="middle" font-size="12" font-weight="600" fill="#44443F">Cache</text>
+<text x="455" y="84" text-anchor="middle" font-size="10" fill="#5F5E5A">Redis</text>
+
+<rect x="390" y="200" width="130" height="60" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+<text x="455" y="226" text-anchor="middle" font-size="12" font-weight="600" fill="#3C3489">Database</text>
+<text x="455" y="244" text-anchor="middle" font-size="10" fill="#534AB7">source of truth</text>
+
+<line x1="132" y1="142" x2="198" y2="142" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow16)"/>
+<text x="165" y="134" text-anchor="middle" font-size="10" fill="#1D9E75">request</text>
+
+<line x1="322" y1="130" x2="388" y2="80" stroke="#1D5DA6" stroke-width="1.5" marker-end="url(#arrow16)"/>
+<text x="360" y="98" text-anchor="middle" font-size="10" fill="#1D5DA6">1 check cache</text>
+
+<line x1="450" y1="102" x2="450" y2="198" stroke="#D85A30" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#arrow16)"/>
+<text x="472" y="152" font-size="10" fill="#D85A30">miss</text>
+
+<line x1="475" y1="200" x2="475" y2="102" stroke="#5F5E5A" stroke-width="1.4" marker-end="url(#arrow16)"/>
+<text x="500" y="152" font-size="10" fill="#5F5E5A">3 store</text>
+
+<line x1="388" y1="150" x2="322" y2="155" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow16)"/>
+<text x="360" y="175" text-anchor="middle" font-size="10" fill="#1D9E75">4 return data</text>
+
+<text x="530" y="70" font-size="9" fill="#8A8880">HIT: return immediately</text>
+<text x="530" y="230" font-size="9" fill="#8A8880">MISS: 2 read DB</text>
+
+<line x1="20" y1="290" x2="680" y2="290" stroke="#E5E3DC" stroke-width="1"/>
+<text x="20" y="312" font-size="11" fill="#52514E">The hard part is invalidation — the cached copy must be updated or evicted whenever the underlying row changes.</text>
+</svg>
