@@ -279,8 +279,28 @@ Total time for all of this: typically **50-200ms** for a server in the same coun
 Answer in your journal:
 
 1. You're designing a **video calling app** (like Zoom). Would you use TCP or UDP for the video/audio stream? Why? What happens if packets are lost?
+A. I would use UDP for transmitting video and audio streams because video calling is a real-time application where low latency is more important than perfect reliability.
+TCP guarantees delivery by retransmitting lost packets, but retransmissions introduce delays that make conversations feel unnatural.
+UDP sends packets without waiting for acknowledgements, resulting in much lower latency.
+If packets are lost, the application simply skips those audio samples or video frames.
+
 2. You're designing a **payment processing system** (like Razorpay). Would you use TCP or UDP? Why? What happens if packets are lost here?
+A. I would use TCP because payment processing requires reliable and ordered delivery of data.
+Every request must reach the server exactly as it was sent, and responses must also be delivered correctly.
+TCP provides Reliable delivery, Ordered packets, Error checking, Retransmission of lost network packets.
+If a network packet is lost, TCP automatically retransmits it before delivering the data to the application.
+At the application layer, payment systems also implement idempotency keys so that if a client retries a payment request due to a timeout, the payment is not processed twice.
+Reliability at the network layer (TCP) and application layer (idempotency) together ensure that money is neither lost nor charged twice.
+
 3. Your system has servers in Mumbai and users in Delhi. Roughly how much latency would a single request add? What about if your servers were in the US?
+A. I cannot be accurate but I could estimate the latency it would take. Network latency between Delhi and Mumbai is typically around 20–50 ms one-way, depending on the ISP and routing.
+Therefore:
+One-way latency: ~20–50 ms
+Round-trip time (RTT): ~40–100 ms
+
+If Servers are in the US:
+One-way: 120–180 ms
+RTT: 250–350 ms
 
 ### Block 3 — Recall (5 min)
 
@@ -320,6 +340,14 @@ Let me test your understanding with a scenario that ties today's concepts to rea
 
 The game needs to send each player's position (x, y, z coordinates — about 12 bytes) to all other players, 30 times per second. Would you use TCP or UDP for this? Walk me through your reasoning — don't just name the protocol, explain *why* by considering what happens when packets are lost or delayed.
 
+A. I would choose UDP because this is a real-time application where low latency is more important than guaranteed delivery.
+
+Each player's position is updated 30 times per second, meaning a new update is sent every 33 ms. If one position packet is lost, retransmitting it isn't useful because by the time it arrives, the player has already moved and a newer position update has likely been sent.
+
+TCP guarantees reliable and ordered delivery, but if a packet is lost, it waits for retransmission before delivering subsequent packets (head-of-line blocking). This introduces latency and causes movement to appear laggy or jerky.
+
+UDP avoids this problem by sending packets without waiting for acknowledgements. If one update is lost, the next update arrives a few milliseconds later, allowing the game to continue smoothly
+To make movement appear smooth despite occasional packet loss, the game client can use techniques such as interpolation, extrapolation, or client-side prediction.
 ---
 
 Take your time with this one. Think about what "30 times per second" means for latency tolerance, and what happens if one position update from 500ms ago finally arrives.
